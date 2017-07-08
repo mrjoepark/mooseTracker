@@ -2,25 +2,19 @@ from xml.dom import minidom
 import urllib2
 from time import sleep 
 
-#get gamday URL
-#gameday=raw_input("Please paste the URL of the game you wish to track:  ")
-#str(gameday)
-
 #get the xml. Use http://gd2.mlb.com/components/game/mlb/year_2017/batters/519058.xml
 html=urllib2.urlopen('http://gd2.mlb.com/components/game/mlb/year_2017/batters/519058.xml')
 
 #parse the xml
 xmldoc=minidom.parse(html)
 
-
 #get the xml tag and access it using dictionary syntax
 game=xmldoc.getElementsByTagName('game')
 
-
-#can access element hierarchy using dictionary index syntax
+#can access tag attributes using dictionary index syntax
 game_index=game[0]
 
-#access xml attribute using dictionary syntax
+#access attribute using dictionary syntax
 batting_stats=game_index.attributes['batting']
 
 #get values and turn the attirbutes into a int and use format to convert to binary
