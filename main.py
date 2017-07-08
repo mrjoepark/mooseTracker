@@ -21,7 +21,6 @@ batting_stats=game_index.attributes['s_hr']
 #get values and turn the attirbutes into a int and use format to convert to binary
 int_shr=int(batting_stats.value)
 
-
 #format(value, '04' lead spaces, b=binary)
 bin_shr=format(int_shr, '06b')
 
@@ -68,10 +67,8 @@ def GPIO_hrs():
         
 #loop 
 while True:
- 
-    #GPIO functions
+    if bin_shr!=bin_shr:
+        chant.play()
     GPIO_hrs()
-    chant.play()
-    
     sleep(60)
     
