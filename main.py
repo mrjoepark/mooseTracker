@@ -3,40 +3,11 @@ import urllib2
 from time import sleep
 import pygame
 
-#get the xml. Use http://gd2.mlb.com/components/game/mlb/year_2017/batters/519058.xml
-html=urllib2.urlopen('http://gd2.mlb.com/components/game/mlb/year_2017/batters/519058.xml')
-
-#parse the xml
-xmldoc=minidom.parse(html)
-
-#get the xml tag and access it using dictionary syntax
-game=xmldoc.getElementsByTagName('batting')
-
-#can access tag attributes using dictionary index syntax
-game_index=game[0]
-
-#access attribute using dictionary syntax
-batting_stats=game_index.attributes['s_hr']
-
-#get values and turn the attirbutes into a int and use format to convert to binary
-int_shr=int(batting_stats.value)
-
-#format(value, '04' lead spaces, b=binary)
-bin_shr=format(int_shr, '06b')
-
-print bin_shr
-
-#put str into lists in order to iterate on lns 57 on down
-bin_shr=list(bin_shr)
-
 pygame.mixer.init()
 chant=pygame.mixer.Sound('/Users/JoePark/Desktop/Royals.wav')
-                         
+bin_shr_check=[0]
 
-#define GPIO on/off functions here
-#figure out runner on base status pattern 
 
-    
 def GPIO_hrs():
     print bin_shr
     #turn inning lights on or off from bin_current_inning_list 
@@ -64,11 +35,40 @@ def GPIO_hrs():
         print ' sixth on'
     else:
         print ' sixth off'
-        
-#loop 
+
 while True:
-    if bin_shr!=bin_shr:
-        chant.play()
+    #get the xml. Use http://gd2.mlb.com/components/game/mlb/year_2017/batters/519058.xml
+    html=urllib2.urlopen('http://gd2.mlb.com/components/game/mlb/year_2017/batters/519058.xml')
+
+    #parse the xml
+    xmldoc=minidom.parse(html)
+
+    #get the xml tag and access it using dictionary syntax
+    game=xmldoc.getElementsByTagName('batting')
+
+    #can access tag attributes using dictionary index syntax
+    game_index=game[0]
+
+    #access attribute using dictionary syntax
+    batting_stats=game_index.attributes['s_hr']
+
+    #get values and turn the attirbutes into a int and use format to convert to binary
+    int_shr=int(batting_stats.value)
+
+    #format(value, '04' lead spaces, b=binary)
+    bin_shr=format(int_shr, '06b')
+
+    print bin_shr
+
+    #put str into lists in order to iterate
+    bin_shr=list(bin_shr)
+
     GPIO_hrs()
+    print bin_shr_check
+    if bin_shr_check!=bin_shr:
+        chant.play()        
     sleep(60)
+    bin_shr_check=bin_shr
+
+    del html
     
