@@ -10,6 +10,7 @@ GPIO.setup(7,GPIO.OUT)
 GPIO.setup(4,GPIO.OUT)
 GPIO.setup(3,GPIO.OUT)
 GPIO.setup(2,GPIO.OUT)
+GPIO.setup(17,GPIO.OUT)
 
 pygame.mixer.init()
 chant=pygame.mixer.Sound('/Users/JoePark/Desktop/Royals.wav')
@@ -50,8 +51,10 @@ def GPIO_hrs():
         GPIO.output(2,0)
         print ' fifth off'
     if bin_shr[5]== '1':
+        GPIO.output(17,1)
         print ' sixth on'
     else:
+        GPIO.output(17,0)
         print ' sixth off'
 
 while True:
