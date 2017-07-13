@@ -7,7 +7,6 @@ pygame.mixer.init()
 chant=pygame.mixer.Sound('/Users/JoePark/Desktop/Royals.wav')
 bin_shr_check=[0]
 
-
 def GPIO_hrs():
     print bin_shr
     #turn inning lights on or off from bin_current_inning_list 
